@@ -32,9 +32,9 @@ env:
 stages:
   - precache # create cache for all stages; to enable only if next stages have several jobs to be executed in parallel
   - name: test-and-deploy-int # execute test and deploy INT environment
-    if: NOT branch IN (PLATINT-4908, stg, master) AND tag IS blank
+    if: NOT branch =~ /^(PLATINT-4908.*|stg|master)$/ AND tag IS blank
   - name: test-and-deploy-perf
-    if: branch = PLATINT-4908 AND tag IS blank
+    if: branch =~ /^PLATINT-4908.*$/ AND tag IS blank
   - name: deploy-stg
     if: branch = stg AND tag IS blank
   - name: deploy-prod
